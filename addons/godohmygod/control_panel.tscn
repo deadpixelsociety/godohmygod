@@ -1,0 +1,156 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6v7io2od40dl"]
+
+[ext_resource type="Script" path="res://addons/godohmygod/control_panel.gd" id="1_woi44"]
+
+[node name="GodohMyGod" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_woi44")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ServerLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Server"
+
+[node name="Server" type="TextEdit" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "localhost"
+placeholder_text = "Server"
+
+[node name="PortLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Port"
+
+[node name="Port" type="SpinBox" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 65535.0
+value = 12345.0
+rounded = true
+
+[node name="Connect" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Connect to Intiface Central"
+
+[node name="DeviceLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Device"
+
+[node name="Device" type="OptionButton" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+
+[node name="ActionLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Action"
+
+[node name="Action" type="OptionButton" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+
+[node name="RetrieveDevices" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Retrieve Devices"
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="IntervalLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "How many keypresses does it take to activate the device? e.g., 1 = every keypress, 4 = every fourth keypress"
+mouse_filter = 1
+text = "Activation Interval"
+
+[node name="Interval" type="SpinBox" parent="MarginContainer/ScrollContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+value = 1.0
+rounded = true
+select_all_on_focus = true
+
+[node name="IntensityLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "The intensity of the device activation from 0 (none) to 1 (max)."
+mouse_filter = 1
+text = "Intensity/Position"
+
+[node name="Intensity" type="SpinBox" parent="MarginContainer/ScrollContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 0.5
+select_all_on_focus = true
+
+[node name="VarianceLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "The intensity variance which adds some randomness, plus or minus, to the intensity."
+mouse_filter = 1
+text = "Variance"
+
+[node name="Variance" type="SpinBox" parent="MarginContainer/ScrollContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 0.5
+select_all_on_focus = true
+
+[node name="DurationLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "How long, in seconds, the activation lasts per keypress. Multiple keypresses will overwrite the most recent."
+mouse_filter = 1
+text = "Duration"
+
+[node name="Duration" type="SpinBox" parent="MarginContainer/ScrollContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 999.0
+step = 0.25
+value = 1.0
+select_all_on_focus = true
+
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/Connect" to="." method="_on_connect_pressed"]
+[connection signal="item_selected" from="MarginContainer/ScrollContainer/VBoxContainer/Device" to="." method="_on_device_item_selected"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/RetrieveDevices" to="." method="_on_retrieve_devices_pressed"]
