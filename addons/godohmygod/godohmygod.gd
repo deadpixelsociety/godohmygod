@@ -63,10 +63,10 @@ func _on_gui_input(event: InputEvent) -> void:
 			GSMessage.MESSAGE_TYPE_SCALAR_CMD:
 				_gsclient.send_scalar(device.device_index, action.feature_index, action.actuator_type, intensity)
 				await get_tree().create_timer(duration).timeout
-				_gsclient.send_scalar(device.device_index, action.feature_index, action.actuator_type, 0.0)
+				_gsclient.stop_device(device.device_index)
 			GSMessage.MESSAGE_TYPE_ROTATE_CMD:
 				_gsclient.send_rotate(device.device_index, action.feature_index, true, intensity)
 				await get_tree().create_timer(duration).timeout
-				_gsclient.send_rotate(device.device_index, action.feature_index, true, 0.0)
+				_gsclient.stop_device(device.device_index)
 			GSMessage.MESSAGE_TYPE_LINEAR_CMD:
 				await _gsclient.send_linear(device.device_index, action.feature_index, duration, intensity)
